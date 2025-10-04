@@ -23,6 +23,8 @@ Given an amount of high-resolution images, we are able to present them as a map 
     - Python
     - API's: 
 
+## **4.- Authors:
+:sob:
 TO DO  
 -[ ]LOAD IMAGE FROM DATABASE   
 -[ ]
