@@ -25,6 +25,18 @@ Given an amount of high-resolution images, we are able to present them as a map 
 
 ## **4.- Authors:
 :sob:
-TO DO  
--[ ]LOAD IMAGE FROM DATABASE   
--[ ]
+    - David Emiliano Cepeda Guerrero
+    - Eduardo Cárdenas Jiménez
+    - Ivana Graciela Ortíz Morales
+    - Francisco Javier Treviño de la Peña
+    - Liliana Joselin Godina Tellez
+    - Claudia Saraí Valdés Jiménez  
+
+**TO DO**  
+- [ ]LOAD IMAGE FROM DATABASE   
+- [ ]Image Description in CSS modals
+- [ ]Zoom in and out easily
+- [ ]Chatbot as a helping resource
+- [ ]Coordinates display
+- [ ]Search bar
+- [ ]Change map button and mechanism
