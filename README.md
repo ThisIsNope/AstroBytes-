@@ -1,18 +1,41 @@
 # Embiggen your eyes
-Nasa Space Challenge Saltillo 2025
+#Nasa Space Challenge Saltillo 2025
 
-1.- Description of the project
+## **1.- Description of the project:**
 This project is meant to be an accessible way to discover and understand features about Earth and other planets all from your own mobile device. 
 
 Given an amount of high-resolution images, we are able to present them as a map of Space, in which users can zoom in and out from the whole view of a small part of the universe.
 
-2.- Features
--Fast and lightweight image scaling
--Data Assembly for datasets based on high-resolution images
--Adaptative data storage
--User accessability from mobile and desktop devices
--
+## **2.- Features**
+    - Fast and lightweight image scaling
+    - Data Assembly for datasets based on high-resolution images
+    - Adaptative data storage
+    - User accessible features from mobile and desktop devices such as zoom in and out and friendly interfaces
+    - Planet features and additional information displayed for users to read
+    - Artificial Intelligence powered text description for what to look for or as a helping resource
+    - Most importantly, easy access and understanding of the website
 
-TO DO  
--[ ]LOAD IMAGE FROM DATABASE   
--[ ]
+## **3.- Techonologies/tools used:**
+    - HTML
+    - CSS
+    - Tailwind
+    - JavaScript
+    - Python
+    - API's: 
+
+## **4.- Authors:**
+    - David Emiliano Cepeda Guerrero
+    - Eduardo Cárdenas Jiménez
+    - Ivana Graciela Ortíz Morales
+    - Francisco Javier Treviño de la Peña
+    - Liliana Joselin Godina Tellez
+    - Claudia Saraí Valdés Jiménez  
+
+**TO DO**  
+- [ ]LOAD IMAGE FROM DATABASE   
+- [ ]Image Description in CSS modals
+- [ ]Zoom in and out easily
+- [ ]Chatbot as a helping resource
+- [ ]Coordinates display
+- [ ]Search bar
+- [ ]Change map button and mechanism
