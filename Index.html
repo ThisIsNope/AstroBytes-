@@ -14,32 +14,40 @@
             <h1>Map &#127776</h1><!--ingles-->
         </div>
         <div><!--root-->
-            <p></p>
+            <div><!--Buscador-->
+                <form action="/"><!--Action attribute -->
+                    <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
+                    <input type="submit" value="&#x1F50E"><!--Img?-->
+                </form>
+            </div>
+
+            <div></div>
         </div>
 
-          <div id="openseadragon"></div>
+        <!--Aqui inicia openseadragon-->
+        <div id="openseadragon"></div>
 
-  <script>
-    // Fecha de la imagen que quieres ver (YYYY-MM-DD)
-    const fecha = "2025-10-04";  
+        <script>
+            // Fecha de la imagen que quieres ver (YYYY-MM-DD)
+            const fecha = "2025-10-04";  
 
-    // Crear el visor
-    var viewer = OpenSeadragon({
-      id: "openseadragon",
-      prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-      showNavigator: true,
-      tileSources: {
-        type: "tilemapservice",
-        width: 16384,  // tamaño máximo (puede variar según dataset)
-        height: 8192,
-        tileSize: 512,
-        minLevel: 0,
-        maxLevel: 8,
-        getTileUrl: function(level, x, y){
-          return https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${fecha}/250m/${level}/${y}/${x}.jpg;
-        }
-      }
-    });
-  </script>
+            // Crear el visor
+            var viewer = OpenSeadragon({
+                id: "openseadragon",
+                prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+                showNavigator: true,
+                tileSources: {
+                    type: "tilemapservice",
+                    width: 16384,  // tamaño máximo (puede variar según dataset)
+                    height: 8192,
+                    tileSize: 512,
+                    minLevel: 0,
+                    maxLevel: 8,
+                    getTileUrl: function(level, x, y){
+                        return `https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${fecha}/250m/${level}/${y}/${x}.jpg`;
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
