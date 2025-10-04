@@ -1,79 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UFT-8">
-        <meta name="viewport" content="width=device.width, initial-scale=1.0">
-        <meta name="author" content="AstroBytes++">
-        <link href="styles.css" rel="stylesheet">
-        <title>Zoom in Space &#127756</title>
-        <script src="/openseadragon-bin-5.0.1/openseadragon.min.js">
-        </script>
 
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-        <h1 class="text-4xl font-bold text-blue-600">Hola Tailwind!</h1>
-        <button class="btn-primary">Test</button>
-        <p> Esto es un test </p> --> 
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport" content="width=device.width, initial-scale=1.0">
+    <meta name="author" content="AstroBytes++">
+    <link href="styles.css" rel="stylesheet">
+    <title>Zoom in Space &#127756</title>
+    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js">
+    </script>
 
-        <div><!--header-->
-            <h1>Map &#127776</h1><!--ingles-->
-        </div>
-        <div><!--root-->
-            <div><!--Search Bar-->
-                <form action="/"><!--Action attribute -->
-                    <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
-                    <input type="submit" value="&#x1F50E"><!--Img?-->
-                </form>
-            </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-            <div></div>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <div><!--header-->
+        <h1>Map &#127776</h1><!--ingles-->
+    </div>
+    <div><!--root-->
+        <div><!--Search Bar-->
+            <form action="/"><!--Action attribute -->
+                <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
+                <input type="submit" value="&#x1F50E"><!--Img?-->
+            </form>
         </div>
 
-        <!--Aqui inicia openseadragon-->
-        <div id="openseadragon"></div>
+        <div></div>
+    </div>
 
-        <script>
-            // Fecha de la imagen que quieres ver (YYYY-MM-DD)
-            const fecha = "2025-10-04";  
+    <!--Aqui inicia openseadragon-->
+    <div id="openseadragon"></div>
 
-            // Crear el visor
-            var viewer = OpenSeadragon({
-                id: "openseadragon",
-                prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-                showNavigator: true,
-                tileSources: {
-                    type: "tilemapservice",
-                    width: 16384,  // tamaño máximo (puede variar según dataset)
-                    height: 8192,
-                    tileSize: 512,
-                    minLevel: 0,
-                    maxLevel: 8,
-                    getTileUrl: function(level, x, y){
-                        return `https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${fecha}/250m/${level}/${y}/${x}.jpg`;
-                    }
+    <script>
+        // Fecha de la imagen que quieres ver (YYYY-MM-DD)
+        const fecha = "2025-10-04";
+
+        // Crear el visor
+        var viewer = OpenSeadragon({
+            id: "openseadragon",
+            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+            showNavigator: true,
+            tileSources: {
+                type: "tilemapservice",
+                width: 16384,  // tamaño máximo (puede variar según dataset)
+                height: 8192,
+                tileSize: 512,
+                minLevel: 0,
+                maxLevel: 8,
+                getTileUrl: function (level, x, y) {
+                    return `https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${fecha}/250m/${level}/${y}/${x}.jpg`;
                 }
-            });
-        </script>
+            }
+        });
+    </script>
 
+    <!-- SideBar -->
+    <div class="sidebar" id="mySidebar">
+        <button class="close-btn" onclick="closeNav()"> &times;</button>
+        <a href="#" class="sidebar-item">1</a>
+        <a href="#" class="sidebar-item">2</a>
+        <a href="#" class="sidebar-item">3</a>
+    </div>
 
-
-        <!-- BOTONO CAPTURONO-->
-        <div id="chat-container">
-            <button id="screenshot-btn">camara</button>
-            <div id="chat-output"></div>
+    <div id="mainContent" class="main-content">
+        <div class="page-header">
+            <button id="openNav" class="open-btn" onclick="openNav()">&#9776;</button>
+            <div class="header-title">
+                <img src="">
+            </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-        <script>
-            document.getElementById('screenshot-btn').addEventListener('click', function() {
-                html2canvas(document.body).then(function(canvas) {
-                    //descarga
-                    var link = document.createElement('a');
-                    link.download = 'captura.png';
-                    link.href = canvas.toDataURL();
-                    link.click();
-                });
+
+        <div style="padding: 20px;">
+            <p>(test de ubicación).</p>
+        </div>
+
+    </div>
+
+    <script>
+        const sidebarWidth = "250px";
+
+        function openNav() {
+            document.getElementById("mainContent").style.marginLeft = sidebarWidth;
+            document.getElementById("mySidebar").style.width = sidebarWidth;
+            document.getElementById("openNav").style.display = 'none';
+        }
+
+        function closeNav() {
+            document.getElementById("mainContent").style.marginLeft = "0";
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("openNav").style.display = "inline-block";
+        }
+    </script>
+
+    <!-- BOTONO CAPTURONO-->
+    <div id="chat-container">
+        <button id="screenshot-btn">camara</button>
+        <div id="chat-output"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById('screenshot-btn').addEventListener('click', function () {
+            html2canvas(document.body).then(function (canvas) {
+                //descarga
+                var link = document.createElement('a');
+                link.download = 'captura.png';
+                link.href = canvas.toDataURL();
+                link.click();
             });
-        </script>
-    </body>
+        });
+    </script>
+
+</body>
+
 </html>
