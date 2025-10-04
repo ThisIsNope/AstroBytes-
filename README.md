@@ -23,8 +23,7 @@ Given an amount of high-resolution images, we are able to present them as a map 
     - Python
     - API's: 
 
-## **4.- Authors:
-:sob:
+## **4.- Authors:**
     - David Emiliano Cepeda Guerrero
     - Eduardo Cárdenas Jiménez
     - Ivana Graciela Ortíz Morales
