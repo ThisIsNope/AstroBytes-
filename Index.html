@@ -6,8 +6,7 @@
         <meta name="author" content="AstroBytes++">
         <link href="styles.css" rel="stylesheet">
         <title>Zoom in Space &#127756</title>
-        <script src="/openseadragon-bin-5.0.1/openseadragon.min.js">
-        </script>
+        <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
 
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
@@ -30,10 +29,10 @@
             <div><!--Nav Buttons-->
                 <h3>Nav</h3>
                 <div>
-                    <button id="up"><img src="" alt="&#"></button><!--img = flecha arriba-->
-                    <button id="right"><img src="" alt="&#"></button><!--img = flecha der-->
-                    <button id="left"><img src="" alt="&#"></button><!--img = flecha izq-->
-                    <button id="down"><img src="" alt="&#"></button><!--img = flecha abajo-->
+                    <button id="pan-up"><img src="" alt="&#"></button><!--img = flecha arriba-->
+                    <button id="pan-left"><img src="" alt="&#"></button><!--img = flecha izq-->
+                    <button id="pan-right"><img src="" alt="&#"></button><!--img = flecha der-->
+                    <button id="pan-down"><img src="" alt="&#"></button><!--img = flecha abajo-->
                 </div>
             </div>
 
@@ -46,6 +45,12 @@
                 </div>
                 <input type="range" id="zoom-slider" min="100" max="500" value="100">
                 <span id="zoom-level">100%</span>
+            </div>
+
+            <div><!--MAP-->
+                <div id="map-viewport">
+                    <img src="" alt="map" id="map-image">
+                </div>     
             </div>
         </div>
 
@@ -103,20 +108,27 @@
             let isDragging = false;
             let startX, startY;
 
+            const mapViewport = document.getElementById('map-viewport');
+            const mapImage = document.getElementById('map-image');
+            const zoomLevel = document.getElementById('zoom-level');
+            const zoomSlider = document.getElementById('zoom-slider');
+            const loading = document.getElementById('loading');
+            const viewportIndicator = document.getElementById('viewport-indicator');
+
             // Controles de zoom
             document.getElementById('zoom-in').addEventListener('click', () => zoom(1.2));
             document.getElementById('zoom-out').addEventListener('click', () => zoom(0.8));
             document.getElementById('reset').addEventListener('click', resetZoom);
             zoomSlider.addEventListener('input', () => {
-            const newScale = zoomSlider.value / 100;
+                const newScale = zoomSlider.value / 100;
                 zoomTo(newScale);
             });
 
             // Controles de navegación
-            document.getElementById('up').addEventListener('click', () => pan(0, 100));
-            document.getElementById('down').addEventListener('click', () => pan(0, -100));
-            document.getElementById('left').addEventListener('click', () => pan(100, 0));
-            document.getElementById('right').addEventListener('click', () => pan(-100, 0));
+            document.getElementById('pan-up').addEventListener('click', () => pan(0, 100));
+            document.getElementById('pan-down').addEventListener('click', () => pan(0, -100));
+            document.getElementById('pan-left').addEventListener('click', () => pan(100, 0));
+            document.getElementById('pan-right').addEventListener('click', () => pan(-100, 0));
 
              // Funciones de zoom
             function zoom(factor) {
@@ -149,6 +161,10 @@
                 posY += deltaY / scale;
                 updateZoom();
             }
+
+            window.addEventListener('load', () => {
+            updateZoom();
+            });
         </script>
     </body>
 </html>
