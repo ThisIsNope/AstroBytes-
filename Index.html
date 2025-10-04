@@ -30,19 +30,19 @@
             <div><!--Nav Buttons-->
                 <h3>Nav</h3>
                 <div>
-                    <button id="up"><img src=""></button><!--img = flecha arriba-->
-                    <button id="right"><img src=""></button><!--img = flecha der-->
-                    <button id="left"><img src=""></button><!--img = flecha izq-->
-                    <button id="down"><img src=""></button><!--img = flecha abajo-->
+                    <button id="up"><img src="" alt="&#"></button><!--img = flecha arriba-->
+                    <button id="right"><img src="" alt="&#"></button><!--img = flecha der-->
+                    <button id="left"><img src="" alt="&#"></button><!--img = flecha izq-->
+                    <button id="down"><img src="" alt="&#"></button><!--img = flecha abajo-->
                 </div>
             </div>
 
             <div><!--Zoom buttons-->
                 <h3>Zoom</h3>
                 <div>
-                    <button id="zoom-in"><img src=""></button><!--img = + -->
-                    <button id="zoom-out"><img src=""></button><!--img = - -->
-                    <button id="reset"><img src=""></button><!--img = RESET -->
+                    <button id="zoom-in"><img src="" alt="+"></button><!--img = + -->
+                    <button id="zoom-out"><img src="" alt="-"></button><!--img = - -->
+                    <button id="reset"><img src="" alt="RESET"></button><!--img = RESET -->
                 </div>
                 <input type="range" id="zoom-slider" min="100" max="500" value="100">
                 <span id="zoom-level">100%</span>
@@ -96,6 +96,13 @@
         </script>
 
         <script>
+            // Variables globales
+            let scale = 1;
+            let posX = 0;
+            let posY = 0;
+            let isDragging = false;
+            let startX, startY;
+
             // Controles de zoom
             document.getElementById('zoom-in').addEventListener('click', () => zoom(1.2));
             document.getElementById('zoom-out').addEventListener('click', () => zoom(0.8));
@@ -106,10 +113,42 @@
             });
 
             // Controles de navegación
-            document.getElementById('pan-up').addEventListener('click', () => pan(0, 100));
-            document.getElementById('pan-down').addEventListener('click', () => pan(0, -100));
-            document.getElementById('pan-left').addEventListener('click', () => pan(100, 0));
-            document.getElementById('pan-right').addEventListener('click', () => pan(-100, 0));
+            document.getElementById('up').addEventListener('click', () => pan(0, 100));
+            document.getElementById('down').addEventListener('click', () => pan(0, -100));
+            document.getElementById('left').addEventListener('click', () => pan(100, 0));
+            document.getElementById('right').addEventListener('click', () => pan(-100, 0));
+
+             // Funciones de zoom
+            function zoom(factor) {
+                scale *= factor;
+                updateZoom();
+            }
+
+            function zoomTo(newScale) {
+                scale = newScale;
+                updateZoom();
+            }
+
+            function resetZoom() {
+                scale = 1;
+                posX = 0;
+                posY = 0;
+                updateZoom();
+            }
+
+            function updateZoom() {
+                mapViewport.style.transform = `translate(-50%, -50%) scale(${scale}) translate(${posX}px, ${posY}px)`;
+                zoomLevel.textContent = Math.round(scale * 100) + '%';
+                zoomSlider.value = Math.round(scale * 100);
+                updateMinimap();
+            }
+
+            // Funciones de pan (movimiento)
+            function pan(deltaX, deltaY) {
+                posX += deltaX / scale;
+                posY += deltaY / scale;
+                updateZoom();
+            }
         </script>
     </body>
 </html>
