@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UFT-8">
+        <meta name="viewport" content="width=device.width, initial-scale=1.0">
+        <meta name="author" content="AstroBytes++">
+        <link href="styles.css" rel="stylesheet">
+        <title>Zoom in Space &#127756</title>
+        <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
 
-<head>
-    <meta charset="UFT-8">
-    <meta name="viewport" content="width=device.width, initial-scale=1.0">
-    <meta name="author" content="AstroBytes++">
-    <link href="styles.css" rel="stylesheet">
-    <title>Zoom in Space &#127756</title>
-    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js">
-    </script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-bold text-blue-600">Hola Tailwind!</h1>
+        <button class="btn-primary">Test</button>
+        <p> Esto es un test </p>
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col">
+            <div><!--Nav Buttons-->
+                <h3>Nav</h3>
+                <div>
+                    <button id="pan-up"><img src="" alt="&#"></button><!--img = flecha arriba-->
+                    <button id="pan-left"><img src="" alt="&#"></button><!--img = flecha izq-->
+                    <button id="pan-right"><img src="" alt="&#"></button><!--img = flecha der-->
+                    <button id="pan-down"><img src="" alt="&#"></button><!--img = flecha abajo-->
+                </div>
+            </div>
 
-    <div><!--header-->
-        <h1>Map &#127776</h1><!--ingles-->
-    </div>
-    <div><!--root-->
-        <div><!--Search Bar-->
-            <form action="/"><!--Action attribute -->
-                <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
-                <input type="submit" value="&#x1F50E"><!--Img?-->
-            </form>
+            <div><!--Zoom buttons-->
+                <h3>Zoom</h3>
+                <div>
+                    <button id="zoom-in"><img src="" alt="+"></button><!--img = + -->
+                    <button id="zoom-out"><img src="" alt="-"></button><!--img = - -->
+                    <button id="reset"><img src="" alt="RESET"></button><!--img = RESET -->
+                </div>
+                <input type="range" id="zoom-slider" min="100" max="500" value="100">
+                <span id="zoom-level">100%</span>
+            </div>
+
+            <div><!--MAP-->
+                <div id="map-viewport">
+                    <img src="" alt="map" id="map-image">
+                </div>     
+            </div>
         </div>
 
         <div></div>
@@ -108,9 +128,73 @@
                 link.href = canvas.toDataURL();
                 link.click();
             });
-        });
-    </script>
+        </script>
 
-</body>
+        <script>
+            // Variables globales
+            let scale = 1;
+            let posX = 0;
+            let posY = 0;
+            let isDragging = false;
+            let startX, startY;
 
+            const mapViewport = document.getElementById('map-viewport');
+            const mapImage = document.getElementById('map-image');
+            const zoomLevel = document.getElementById('zoom-level');
+            const zoomSlider = document.getElementById('zoom-slider');
+            const loading = document.getElementById('loading');
+            const viewportIndicator = document.getElementById('viewport-indicator');
+
+            // Controles de zoom
+            document.getElementById('zoom-in').addEventListener('click', () => zoom(1.2));
+            document.getElementById('zoom-out').addEventListener('click', () => zoom(0.8));
+            document.getElementById('reset').addEventListener('click', resetZoom);
+            zoomSlider.addEventListener('input', () => {
+                const newScale = zoomSlider.value / 100;
+                zoomTo(newScale);
+            });
+
+            // Controles de navegación
+            document.getElementById('pan-up').addEventListener('click', () => pan(0, 100));
+            document.getElementById('pan-down').addEventListener('click', () => pan(0, -100));
+            document.getElementById('pan-left').addEventListener('click', () => pan(100, 0));
+            document.getElementById('pan-right').addEventListener('click', () => pan(-100, 0));
+
+             // Funciones de zoom
+            function zoom(factor) {
+                scale *= factor;
+                updateZoom();
+            }
+
+            function zoomTo(newScale) {
+                scale = newScale;
+                updateZoom();
+            }
+
+            function resetZoom() {
+                scale = 1;
+                posX = 0;
+                posY = 0;
+                updateZoom();
+            }
+
+            function updateZoom() {
+                mapViewport.style.transform = `translate(-50%, -50%) scale(${scale}) translate(${posX}px, ${posY}px)`;
+                zoomLevel.textContent = Math.round(scale * 100) + '%';
+                zoomSlider.value = Math.round(scale * 100);
+                updateMinimap();
+            }
+
+            // Funciones de pan (movimiento)
+            function pan(deltaX, deltaY) {
+                posX += deltaX / scale;
+                posY += deltaY / scale;
+                updateZoom();
+            }
+
+            window.addEventListener('load', () => {
+            updateZoom();
+            });
+        </script>
+    </body>
 </html>
