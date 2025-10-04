@@ -1,6 +1,6 @@
 # AstroBytes++
 Project Embiggen your eyes!
 
-TO DO
+TO DO  
 -[]LOAD IMAGE FROM DATABASE   
 -[]
