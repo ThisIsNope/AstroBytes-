@@ -49,5 +49,25 @@
                 }
             });
         </script>
+
+
+
+        <!-- BOTONO CAPTURONO-->
+        <div id="chat-container">
+            <button id="screenshot-btn">camara</button>
+            <div id="chat-output"></div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script>
+            document.getElementById('screenshot-btn').addEventListener('click', function() {
+                html2canvas(document.body).then(function(canvas) {
+                    //descarga
+                    var link = document.createElement('a');
+                    link.download = 'captura.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            });
+        </script>
     </body>
 </html>
