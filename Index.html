@@ -94,5 +94,22 @@
                 });
             });
         </script>
+
+        <script>
+            // Controles de zoom
+            document.getElementById('zoom-in').addEventListener('click', () => zoom(1.2));
+            document.getElementById('zoom-out').addEventListener('click', () => zoom(0.8));
+            document.getElementById('reset').addEventListener('click', resetZoom);
+            zoomSlider.addEventListener('input', () => {
+            const newScale = zoomSlider.value / 100;
+                zoomTo(newScale);
+            });
+
+            // Controles de navegación
+            document.getElementById('pan-up').addEventListener('click', () => pan(0, 100));
+            document.getElementById('pan-down').addEventListener('click', () => pan(0, -100));
+            document.getElementById('pan-left').addEventListener('click', () => pan(100, 0));
+            document.getElementById('pan-right').addEventListener('click', () => pan(-100, 0));
+        </script>
     </body>
 </html>
