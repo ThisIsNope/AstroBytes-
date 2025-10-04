@@ -1,1 +1,7 @@
-print("HOLA Mundo")
+# CONVERT IMAGES TO .dzi
+
+import pyvips
+
+
+
+
