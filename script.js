@@ -84,13 +84,13 @@ const sidebarWidth = "250px";
 function openNav() {
     document.getElementById("mainContent").style.marginLeft = sidebarWidth;
     document.getElementById("mySidebar").style.width = sidebarWidth;
-    document.getElementById("openNav").style.display = 'none';
+    document.getElementById("open-btn").style.left = "260px"; 
 }
 
 function closeNav() {
-    document.getElementById("mainContent").style.marginLeft = "0";
+    document.getElementById("mainContent").style.marginLeft = "10px";
     document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("openNav").style.display = "inline-block";
+    document.getElementById("open-btn").style.left = "0px";
 }
 
 
