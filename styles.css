@@ -126,3 +126,8 @@ body {
   bottom: 0;
   text-align: center;
 }
+
+.nav-z-btn{
+  width: 10%;
+  height: 10%;
+}
