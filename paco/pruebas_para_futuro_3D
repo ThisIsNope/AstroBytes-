@@ -6,6 +6,8 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 </head>
 
+       
+
 <body>
      <button id="stopBtn">Detener</button>
      <button id="contBtn">seguir</button>
@@ -17,6 +19,8 @@
                textura_Mercurio = loadImage('mercurio.jpg');
                textura_fondo_estrellas = loadImage("https://i.ibb.co/NNTFKmL/nocheHD.jpg");
                textura_venus = loadImage("venus.jpg");
+               textura_tierra = loadImage("tierra.jpg");
+               textura_luna = loadImage("luna.jpeg");
           }
 
           function setup() {
@@ -30,15 +34,7 @@
                     loop();
                });
           }
-
-          //function mousePressed() {
-               // Check if click is on the sun (approximate: distance from center < 100)
-            //   let d = dist(mouseX, mouseY, 0, 0);
-              // if (d < 550 && d > 370) {
-               //     window.open('https://www.google.com', '_blank');
-               //}
-          //}
-
+          
           function draw() {
                background("black")
                
@@ -51,7 +47,7 @@
                orbitControl() //Controlar con el mouse la camara
 
                push()
-               rotateY(frameCount * 0.003); //rotación del sol
+               rotateY(-frameCount * 0.003); //rotación del sol
                texture(textura_sol); 
                sphere(100);
                pop()
@@ -66,15 +62,49 @@
 
                push()
                rotateY(-frameCount * 0.005 / 10);//Traslación
-               translate(0, 0, 305)//Distancia del centro del sol al centro de la mercurio
-               rotateY(-frameCount * 0.0005);//Rotación de mercurio
+               translate(0, 0, 305)//Distancia del centro del sol al centro de la venus
+               rotateY(-frameCount * 0.0005);//Rotación de venus
                texture(textura_venus);
                sphere(50);
                pop()
+
+               push()
+               rotateY(-frameCount * 0.001 / 10);//Traslación
+               translate(0, 0, 424)//Distancia del centro del sol tierra
+               rotateY(-frameCount * 0.0001);//Rotación de tierra
+               texture(textura_tierra);
+               sphere(45);
+
+               push()
+               rotateY(frameCount * 0.005); // Órbita de la luna alrededor de la tierra
+               translate(0, 0, 80); // Distancia de la tierra a la luna
+               rotateY(frameCount * 0.01); // Rotación de la luna
+               texture(textura_luna);
+               sphere(10);
+               pop()
+
+               pop()
+
+
           }
 
      </script>
-
+      <div id="chat-container">
+            <button id="screenshot-btn">camara</button>
+            <div id="chat-output"></div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script>
+            document.getElementById('screenshot-btn').addEventListener('click', function() {
+                html2canvas(document.body).then(function(canvas) {
+                    //descarga
+                    var link = document.createElement('a');
+                    link.download = 'captura.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+            });
+        </script>
 </body>
 
 </html>
