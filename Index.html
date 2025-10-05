@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device.width, initial-scale=1.0">
     <meta name="author" content="AstroBytes++">
     <link href="styles.css" rel="stylesheet">
-    <title>Zoom in Space &#127756</title>
-    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
+    <title>Zoom in Space &#127756</title> 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -17,9 +16,12 @@
     <button class="close-btn" onclick="closeNav()"> &times;</button>
     <div class="sidebar-content-box"><!--Chatbot-->
         <h3>AstroBot</h3>
-        <form action="astrobot.js" target="_self">
+        <form action="astrobot.js" target="_self" method="post">
             <input type="text" id="question" name="question" placeholder="Ask a question...">
-            <input type="submit" value="Analyze">
+            <button onclick="analyzeCurrentView()">Ask SpaceBot</button>
+            <div id="ai-response-area">
+                <p>¡Hola! Haz zoom en cualquier objeto para comenzar el análisis.</p><!--ingles-->
+            </div>
         </form>
     </div>
     <div class="sidebar-content-box">
@@ -57,11 +59,7 @@
         </form>
     </div>
 
-    <div><!--MAP-->
-        <div id="map-viewport">
-            <img src="media/mapa.jpeg" alt="map" id="map-image">
-        </div>
-    </div>
+    <div id="map-viewport"><!--MAP--></div>
 
 
     <!--Lugar de contenido general, desplazamiento a la derecha  -->
@@ -84,8 +82,11 @@
         </div>
     </footer>
 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
     <script src="script.js"></script>
+    <script src="astrobot.js"></script>
 </body>
 
 </html>
