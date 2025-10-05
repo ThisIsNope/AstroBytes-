@@ -15,9 +15,11 @@
 <div class="sidebar" id="mySidebar">
     <button class="close-btn" onclick="closeNav()"> &times;</button>
     <div class="sidebar-content-box">
-        <h1>Chatbot</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua </p>
+        <h3>Chatbot</h3>
+        <form action="">
+            <input type="text" id="question" name="question" placeholder="Ask a question...">
+            <input type="submit" value="Analyze">
+        </form>
     </div>
     <div class="sidebar-content-box">
         <h3>Zoom</h3>
@@ -50,7 +52,7 @@
     <div><!--Search Bar-->
         <form action="/"><!--Action attribute -->
             <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
-            <input type="submit" value="&#x1F50E"><!--Img?-->
+            <input type="submit" value="&#x1F50E">
         </form>
     </div>
 
@@ -74,16 +76,14 @@
         </div>
     </div>
 
-    <!-- BOTONO CAPTURONO-->
-    <div id="chat-container">
-        <button id="screenshot-btn">camara</button>
-        <div id="chat-output"></div>
-    </div>
+
 
     <footer class="footer">
-        <p>
-            test
-        </p>
+        <!-- BOTONO CAPTURONO-->
+        <div id="chat-container">
+            <button id="screenshot-btn">camara</button>
+            <div id="chat-output"></div>
+        </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
