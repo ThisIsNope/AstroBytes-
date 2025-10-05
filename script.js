@@ -210,4 +210,4 @@ function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
         )
     });
 
-   
+ }
