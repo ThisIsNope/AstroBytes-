@@ -85,16 +85,20 @@ body {
 
 /* Estilos para el encabezado de la página */
 .page-header {
-  position: relative;
-  background-color: #e71bd6;
+  position: fixed;
+  background-color: #006D9E;
   color: white;
   padding: 20px;
   display: flex;
   align-items: center;
   width: 70px;
+  left: 0;
+  top: 0;
 }
 
 .open-btn {
+  top:0;
+  left: 0;
   font-size: 30px;
   cursor: pointer;
   background: none;
