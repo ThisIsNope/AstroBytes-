@@ -11,6 +11,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+<!-- SideBar -->
+<div class="sidebar" id="mySidebar">
+    <button class="close-btn" onclick="closeNav()"> &times;</button>
+    <div class="sidebar-content-box">
+        <h1>Chatbot</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua </p>
+    </div>
+    <div class="sidebar-content-box">
+        <h3>Zoom</h3>
+        <div>
+            <button class="nav-z-btn" id="zoom-in"><img src="media/mas.png" alt="+"></button>
+            <button class="nav-z-btn" id="zoom-out"><img src="media/menos.png" alt="-"></button>
+            <button id="reset">
+                <p>RESET</p>
+            </button>
+        </div>
+        <input type="range" id="zoom-slider" min="100" max="500" value="100">
+        <span id="zoom-level">100%</span>
+    </div>
+    <div class="sidebar-content-box">
+        <h3>Botones de navegación</h3>
+        <div>
+            <button class="nav-z-btn" id="pan-up"><img src="media/flecha_arriba.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-down"><img src="media/flecha_abajo.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-left"><img src="media/flecha_izq.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-right"><img src="media/flecha_der.png" alt="&#"></button>
+
+        </div>
+    </div>
+</div>
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <div><!--header-->
@@ -29,41 +60,6 @@
         </div>
     </div>
 
-    <!-- SideBar -->
-    <div class="sidebar" id="mySidebar">
-        <button class="close-btn" onclick="closeNav()"> &times;</button>
-        <div class="sidebar-content-box">
-            <h1>Chatbot</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua </p>
-        </div>
-        <div class="sidebar-content-box">
-            <h3>Zoom</h3>
-            <div>
-                <button class="nav-z-btn" id="zoom-in"><img src="media/mas.png" alt="+"></button>
-                <button class="nav-z-btn" id="zoom-out"><img src="media/menos.png" alt="-"></button>
-                <button id="reset">
-                    <p>RESET</p>
-                </button>
-            </div>
-            <input type="range" id="zoom-slider" min="100" max="500" value="100">
-            <span id="zoom-level">100%</span>
-        </div>
-        <div class="sidebar-content-box">
-            <h3>Botones de navegación</h3>
-            <div>
-                <button class="nav-z-btn" id="pan-up"><img src="media/flecha_arriba.png"
-                        alt="&#"></button>
-                <button class="nav-z-btn" id="pan-down"><img src="media/flecha_abajo.png"
-                        alt="&#"></button>
-                <button class="nav-z-btn" id="pan-left"><img src="media/flecha_izq.png"
-                        alt="&#"></button>
-                <button class="nav-z-btn" id="pan-right"><img src="media/flecha_der.png"
-                        alt="&#"></button>
-
-            </div>
-        </div>
-    </div>
 
     <!--Lugar de contenido general, desplazamiento a la derecha  -->
     <div id="mainContent" class="main-content">
@@ -89,7 +85,7 @@
             test
         </p>
     </footer>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
