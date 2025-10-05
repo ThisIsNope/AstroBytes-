@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="AstroBytes++">
     <link href="styles.css" rel="stylesheet">
-    <title>Zoom in Space &#127756</title> 
+    <title>Zoom in Space &#127756</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -50,39 +50,52 @@
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <div><!--header-->
-        <h1>Map &#127776</h1><!--ingles-->
-    </div>
-    <div><!--Search Bar-->
-        <form action="/"><!--Action attribute -->
-            <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
-            <input type="submit" value="&#x1F50E">
-        </form>
+        <h1>Test</h1><!--ingles-->
     </div>
 
     <div id="map-viewport"><!--MAP--></div>
-
 
     <!--Lugar de contenido general, desplazamiento a la derecha  -->
     <div id="mainContent" class="main-content">
         <div class="page-header">
         </div>
-        <div style="padding: 20px;">
-            <p>Lugar de ubicación del mapa y modales</p>
+    </div>
+
+    <div id="openseadragon-viewer" style="width: 800px; height: 600px;">
+        <div id="planet-modal-trigger" class="absolute hidden cursor-pointer z-50" onclick="openModal()">
+            <img src="Gifs/modal_click_btn.gif" alt="Abrir detalle del planeta" class="w-16 h-16">
         </div>
     </div>
 
+    <div id="my-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black opacity-70" onclick="closeModal()"></div>
+
+        <div class="relative bg-white rounded-lg shadow-xl m-10 p-4 max-w-4xl mx-auto my-10 overflow-auto">
+            <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl" onclick="closeModal()">
+                &times;
+            </button>
+
+            <h2 class="text-xl font-bold mb-4">Detalle de la Imagen Ampliada</h2>
+
+            <div id="modal-openseadragon-viewer" style="width: 100%; height: 60vh;">
+            </div>
+
+            <p class="mt-4 text-sm text-gray-600">Este es el contenido del modal.</p>
+        </div>
+    </div>
 
     <footer class="footer">
         <!-- BOTONO CAPTURONO-->
         <div id="chat-container">
             <button id="screenshot-btn">
-                <img src="media/screenshot_btn.png" alt="Screenshot button icon" width="70px" height="70px">
-            </button>   </div>
-            <div id="chat-output"></div>
+                <img src="media/screenshot_btn.png" alt="Screenshot button icon" width="50px" height="50px">
+            </button>
+        </div>
+        <div id="chat-output"></div>
         </div>
     </footer>
 
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
     <script src="script.js"></script>
