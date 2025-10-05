@@ -414,7 +414,7 @@ function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
         } else {
             planet.style.pointerEvents = "auto";
         }
-
+    planet.draggable = false;
         planet.loading = "lazy";
         planet.className = "planet-overlay transition-opacity duration-300";
         planet.style.opacity = "0.7";
