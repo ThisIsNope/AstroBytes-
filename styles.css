@@ -53,6 +53,23 @@ body {
   /* Color un poco más claro al pasar el ratón */
 }
 
+/* Estilo para el contenedor del chatbot */
+.sidebar-content-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Fondo blanco semi-transparente */
+  color: white;
+  padding: 15px;
+  margin: 20px 10px;
+  /* Margen para separarlo de los bordes y enlaces */
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-content-box p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
 /* Estilo para el botón de cerrar */
 .close-btn {
   position: absolute;
@@ -83,8 +100,15 @@ body {
   border: none;
   color: white;
   margin-right: 10px;
+  content: ;
+
 }
 
 .header-title {
   margin-left: 15px;
+}
+
+.sidebar-open-btn{
+  scale: 500%;
+  padding-left: 2px;
 }
