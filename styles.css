@@ -91,6 +91,7 @@ body {
   display: flex;
   align-items: center;
   width: 70px;
+  position: relative;
 }
 
 .open-btn {
@@ -100,6 +101,7 @@ body {
   border: none;
   color: white;
   margin-right: 10px;
+  display: flex;
 
 }
 
@@ -107,12 +109,13 @@ body {
   margin-left: 15px;
 }
 
-.sidebar-open-btn{
-  scale: 500%;
+.sidebar-open-btn {
+  scale: 750%;
   padding-left: 2px;
+  display: flex;
 }
 
-.footer{
+.footer {
   position: fixed;
   width: 100%;
   background: #3586ff;
@@ -127,7 +130,7 @@ body {
   text-align: center;
 }
 
-.nav-z-btn{
+.nav-z-btn {
   width: 10%;
   height: 10%;
 }
