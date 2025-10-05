@@ -23,30 +23,9 @@
         </form>
     </div>
 
-    <div><!--Nav Buttons-->
-        <h3>Nav</h3>
-        <div>
-            <button id="pan-up"><img src="" alt="&#"></button><!--img = flecha arriba-->
-            <button id="pan-left"><img src="" alt="&#"></button><!--img = flecha izq-->
-            <button id="pan-right"><img src="" alt="&#"></button><!--img = flecha der-->
-            <button id="pan-down"><img src="" alt="&#"></button><!--img = flecha abajo-->
-        </div>
-    </div>
-
-    <div><!--Zoom buttons-->
-        <h3>Zoom</h3>
-        <div>
-            <button id="zoom-in"><img src="" alt="+"></button><!--img = + -->
-            <button id="zoom-out"><img src="" alt="-"></button><!--img = - -->
-            <button id="reset"><img src="" alt="RESET"></button><!--img = RESET -->
-        </div>
-        <input type="range" id="zoom-slider" min="100" max="500" value="100">
-        <span id="zoom-level">100%</span>
-    </div>
-
     <div><!--MAP-->
         <div id="map-viewport">
-            <img src="" alt="map" id="map-image">
+            <img src="media/mapa.jpeg" alt="map" id="map-image">
         </div>
     </div>
 
@@ -81,21 +60,44 @@
     <!-- SideBar -->
     <div class="sidebar" id="mySidebar">
         <button class="close-btn" onclick="closeNav()"> &times;</button>
-        <a href="#" class="sidebar-item">1</a>
-        <a href="#" class="sidebar-item">2</a>
-        <a href="#" class="sidebar-item">3</a>
+        <div class="sidebar-content-box">
+            <h1>Chatbot</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua </p>
+        </div>
+        <div class="sidebar-content-box">
+            <h3>Zoom</h3>
+            <div>
+                <button id="zoom-in"><img src="media/mas.png" alt="+" style="width: 50%;height: 50%;"></button><!--img = + -->
+                <button id="zoom-out"><img src="media/menos.png" alt="-"></button><!--img = - -->
+                <button id="reset"><img src="" alt="RESET"></button><!--img = RESET -->
+            </div>
+            <input type="range" id="zoom-slider" min="100" max="500" value="100">
+            <span id="zoom-level">100%</span>
+        </div>
+        <div class ="sidebar-content-box">
+            <h3>Botones de navegación</h3>
+            <div>
+                <button id="pan-up"><img src="media/flecha_arriba.png" alt="&#"></button><!--img = flecha arriba-->
+                <button id="pan-left"><img src="media/flecha_izq.png" alt="&#"></button><!--img = flecha izq-->
+                <button id="pan-right"><img src="media/flecha_der.png" alt="&#"></button><!--img = flecha der-->
+                <button id="pan-down"><img src="media/flecha_abajo.png" alt="&#"></button><!--img = flecha abajo-->
+            </div>
+        </div>
     </div>
 
+    <!--Lugar de contenido general, desplazamiento a la derecha  -->
     <div id="mainContent" class="main-content">
         <div class="page-header">
-            <button id="openNav" class="open-btn" onclick="openNav()">&#9776;</button>
+            <button id="openNav" class="open-btn" onclick="openNav()">
+                <img src="media/gemini_logo.png" alt="sidebar open button" class="sidebar-open-btn">
+            </button>
             <div class="header-title">
                 <img src="">
             </div>
         </div>
 
         <div style="padding: 20px;">
-            <p>test</p>
+            <p>Lugar de ubicación del mapa y modales</p>
         </div>
 
     </div>
@@ -121,6 +123,12 @@
         <button id="screenshot-btn">camara</button>
         <div id="chat-output"></div>
     </div>
+
+    <footer class="footer">
+        <p>
+            test
+        </p>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         document.getElementById('screenshot-btn').addEventListener('click', function () {
