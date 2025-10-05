@@ -449,19 +449,4 @@ function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
             closeModal(currentOpenModal);
         }
     });
-
-    // El resto de tu código permanece igual...
-    // (controles de navegación, screenshot, sidebar, etc.)
-
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -142,7 +142,6 @@ body {
 .footer {
   position: fixed;
   width: 100%;
-  background: #a5243d;
   min-height: 50px;
   padding: 10px;
   display: flex;
@@ -151,7 +150,7 @@ body {
   flex-direction: column;
   left: 0;
   bottom: 0;
-  text-align: center;
+  text-align: right;
 }
 
 .nav-z-btn {
