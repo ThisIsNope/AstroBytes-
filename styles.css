@@ -1,4 +1,4 @@
-body{
+body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
@@ -23,6 +23,7 @@ body{
   position: relative;
   z-index: 1;
 }
+
 #map-viewport {
   position: fixed;
   top: 0;
@@ -40,7 +41,8 @@ body{
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1000; /* Mayor z-index para estar por encima */
+  z-index: 1000;
+  /* Mayor z-index para estar por encima */
   top: 0;
   left: 0;
   background-color: #00487C;
@@ -140,7 +142,6 @@ body{
 .footer {
   position: fixed;
   width: 100%;
-  background: #a5243d;
   min-height: 50px;
   padding: 10px;
   display: flex;
@@ -149,7 +150,7 @@ body{
   flex-direction: column;
   left: 0;
   bottom: 0;
-  text-align: center;
+  text-align: right;
 }
 
 .nav-z-btn {
@@ -157,6 +158,26 @@ body{
   height: 10%;
 }
 
-.h1{
+.h1 {
   color: white;
+}
+
+
+/* test */
+.planet-overlay {
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.planet-overlay:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+}
+
+#planet-modals {
+  pointer-events: none;
+}
+
+#planet-modals>div {
+  pointer-events: all;
 }
