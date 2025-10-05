@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System Info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0c10;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #66fcf1;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .card {
+      background: #1f2833;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .card h2 {
+      margin: 10px 0;
+      color: #45a29e;
+    }
+    .card p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #c5c6c7;
+    }
+    .card ul {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Solar System Info 🌌</h1>
+  <div class="container" id="planet-container"></div>
+
+  <script>
+    const container = document.getElementById("planet-container");
+
+    fetch("../planetData.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to load JSON");
+        return response.json();
+      })
+      .then(data => {
+        data.forEach(body => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          let moons = body.moons.length > 0 ? `<ul>${body.moons.map(m => `<li>${m}</li>`).join('')}</ul>` : "None";
+
+          card.innerHTML = `
+            <h2>${body.name} (${body.type})</h2>
+            <p><strong>Age:</strong> ${body.age}</p>
+            <p><strong>Characteristics:</strong></p>
+            <ul>
+              ${Object.entries(body.characteristics).map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`).join('')}
+            </ul>
+            <p><strong>History:</strong></p>
+            <ul>
+              ${body.history.formation ? `<li><strong>Formation:</strong> ${body.history.formation.description}</li>` : ''}
+              ${body.history.main_sequence ? `<li><strong>Main Sequence:</strong> ${body.history.main_sequence.description}</li>` : ''}
+              ${body.history.future ? 
+                Object.entries(body.history.future).map(([phase, info]) => `<li><strong>${phase}:</strong> ${info.description}</li>`).join('') 
+                : ''}
+            </ul>
+            <p><strong>Moons:</strong></p>
+            ${moons}
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
