@@ -16,9 +16,12 @@
     <button class="close-btn" onclick="closeNav()"> &times;</button>
     <div class="sidebar-content-box"><!--Chatbot-->
         <h3>AstroBot</h3>
-        <form action="astrobot.js" target="_self">
+        <form action="astrobot.js" target="_self" method="post">
             <input type="text" id="question" name="question" placeholder="Ask a question...">
-            <input type="submit" value="Analyze">
+            <button onclick="analyzeCurrentView()">Ask SpaceBot</button>
+            <div id="ai-response-area">
+                <p>¡Hola! Haz zoom en cualquier objeto para comenzar el análisis.</p><!--ingles-->
+            </div>
         </form>
     </div>
     <div class="sidebar-content-box">
@@ -86,8 +89,10 @@
         </div>
     </footer>
 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
+    <script src="astrobot.js"></script>
 </body>
 
 </html>
