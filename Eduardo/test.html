@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>OpenSeadragon - Sun Zoom</title>
+    <title>OpenSeadragon + Three.js 3D Map</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
             overflow: hidden;
             background-color: black;
+            font-family: Arial, sans-serif;
         }
 
         #openseadragon {
@@ -17,24 +18,80 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100vh; /*60 para normal*/
+            z-index: 1;
+        }
+/*
+        #threejs-container {
+            position: absolute;
+            top: 60vh;
+            left: 0;
+            width: 100vw;
+            height: 40vh;
+            z-index: 2;
+            border-top: 2px solid white;
         }
 
-        #sun {
+        #controls {
             position: absolute;
-            pointer-events: none;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 3;
+            max-width: 300px;
         }
-        #mercury {
-            position: absolute;
-            pointer-events: none;
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 3px;
+            cursor: pointer;
         }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .planet-overlay {
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+            */
     </style>
 </head>
 <body>
     <div id="openseadragon"></div>
+    <div id="threejs-container"></div>
+    
+    <div id="controls">
+        <h3>Controles</h3>
+        <p>Arriba: OpenSeadragon (2D)</p>
+        <p>Abajo: Three.js (3D)</p>
+        <button onclick="switchToMercury()">Mercurio 3D</button>
+        <button onclick="switchToMars()">Marte 3D</button>
+        <button onclick="resetView()">Reset Vista</button>
+    </div>
 
     <script src="../openseadragon-bin-5.0.1/openseadragon.min.js"></script>
-    <script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/controls/OrbitControls.js';
+
+        // ===== OPENSEADRAGON CONFIGURATION =====
         var viewer = OpenSeadragon({
             id: "openseadragon",
             prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
@@ -46,44 +103,239 @@
             constrainDuringPan: true,
         });
 
+        // Agregar planetas como overlays
         viewer.addHandler("open", function() {
-            var sun = document.createElement("img");
-            sun.src = "tiles/sunHD.png";
-            sun.id = "sun";
+            addPlanetOverlay("sun", "tiles/sunHD.png", 0.13, 0.2, 0, 0);
+            addPlanetOverlay("mercury", "tiles/mercury.png", 0.01, 0.015, -0.05, -0.1);
+            addPlanetOverlay("venus", "tiles/venus.png", 0.018, 0.028, -0.09, .1);
+            addPlanetOverlay("earth", "tiles/earth.png", 0.025, 0.038, 0.11, .15);
+            addPlanetOverlay("mars", "tiles/mars.png", 0.025, 0.039, 0.2, .11);
+            addPlanetOverlay("jupiter", "tiles/jupiter.png", 0.10, 0.15, 0.28, -0.20);
+            addPlanetOverlay("saturn", "tiles/saturn.png", 0.10, 0.15, -0.28, -0.25);
+            addPlanetOverlay("uranus", "tiles/uranus.png", 0.05, 0.12, -0.28, 0.25);
+            addPlanetOverlay("neptune", "tiles/neptune.png", 0.05, 0.08, -0.15, 0.40);
+            
+        });
 
-            // Obtener los límites de la imagen
+        function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
+            var planet = document.createElement("img");
+            planet.src = src;
+            planet.id = id;
+            planet.className = "planet-overlay";
+
             var tiledImage = viewer.world.getItemAt(0);
-            var bounds = tiledImage.getBounds(); // x, y, width, height
-
-            // Calcular el centro exacto
+            var bounds = tiledImage.getBounds();
+            
             var centerX = bounds.x + bounds.width / 2;
             var centerY = bounds.y + bounds.height / 2;
 
-            // Agregar overlay centrado
             viewer.addOverlay({
-                element: sun,
-                location: new OpenSeadragon.Rect(centerX - bounds.width * 0.06, centerY - bounds.height * 0.03, bounds.width * 0.13, bounds.height * 0.2)
+                element: planet,
+                location: new OpenSeadragon.Rect(
+                    centerX - bounds.width * (widthRatio/2) + (bounds.width * offsetX),
+                    centerY - bounds.height * (heightRatio/2) + (bounds.height * offsetY),
+                    bounds.width * widthRatio,
+                    bounds.height * heightRatio
+                )
             });
+        }
+/**
+        // ===== THREE.JS CONFIGURATION =====
+        let scene, camera, renderer, controls, currentTerrain;
+
+        function initThreeJS() {
+            const container = document.getElementById('threejs-container');
+            
+            // Escena
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000011);
+            
+            // Cámara
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 15, 25);
+            
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+            
+            // Controles
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            
+            // Iluminación
+            setupLighting();
+            
+            // Crear terreno inicial
+            createMercuryTerrain();
+            
+            // Handle resize
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function setupLighting() {
+            // Luz ambiental
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+            scene.add(ambientLight);
+            
+            // Luz direccional principal
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(50, 50, 50);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+            
+            // Luz de relleno
+            const fillLight = new THREE.DirectionalLight(0x4444ff, 0.3);
+            fillLight.position.set(-50, -20, -50);
+            scene.add(fillLight);
+        }
+
+        function createMercuryTerrain() {
+    if (currentTerrain) {
+        scene.remove(currentTerrain);
+        currentTerrain.geometry.dispose();
+        currentTerrain.material.dispose();
+    }
+
+    const loader = new THREE.TextureLoader();
+
+    loader.load('tiles/mercHM.jpg', function(texture) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const size = 1024; // tamaño razonable
+        canvas.width = size;
+        canvas.height = size;
+
+        // Dibujar la textura en un tamaño manejable
+        context.drawImage(texture.image, 0, 0, size, size);
+        const imageData = context.getImageData(0, 0, size, size);
+        const data = imageData.data;
+
+        const geometry = new THREE.PlaneGeometry(30, 30, size - 1, size - 1);
+        const vertices = geometry.attributes.position;
+
+        for (let i = 0; i < vertices.count; i++) {
+            const x = i % size;
+            const y = Math.floor(i / size);
+            const pixelIndex = (y * size + x) * 4;
+            const height = (data[pixelIndex] + data[pixelIndex + 1] + data[pixelIndex + 2]) / (3 * 255);
+            vertices.setZ(i, height*.35); // escala vertical
+        }
+
+        geometry.computeVertexNormals();
+
+        // Material con el mapa original aplicado
+        const textureColor = new THREE.TextureLoader().load('tiles/mercTX.jpg');
+        const material = new THREE.MeshStandardMaterial({
+            map: textureColor,
+            roughness: 0.8,
+            metalness: 0.2
         });
-        viewer.addHandler("open", function() {
-            var mercury = document.createElement("img");
-            mercury.src = "tiles/mercury.png";
-            mercury.id = "mercury";
 
-            // Obtener los límites de la imagen
-            var tiledImage = viewer.world.getItemAt(0);
-            var bounds = tiledImage.getBounds(); // x, y, width, height
+        currentTerrain = new THREE.Mesh(geometry, material);
+        currentTerrain.rotation.x = -Math.PI / 2;
+        currentTerrain.castShadow = true;
+        currentTerrain.receiveShadow = true;
+        scene.add(currentTerrain);
 
-            // Calcular el centro exacto
-            var centerX = bounds.x + bounds.width / 2.2;
-            var centerY = bounds.y + bounds.height / 2.1;
+        addReferenceSphere();
+    });
+} 
 
-            // Agregar overlay centrado
-            viewer.addOverlay({
-                element: mercury,
-                location: new OpenSeadragon.Rect(centerX - bounds.width * 0.01, centerY - bounds.height * 0.01, bounds.width * 0.01, bounds.height * 0.015)
+        function createMarsTerrain() {
+            if (currentTerrain) {
+                scene.remove(currentTerrain);
+                currentTerrain.geometry.dispose();
+                currentTerrain.material.dispose();
+            }
+
+            // Crear terreno procedural para Marte
+            const geometry = new THREE.PlaneGeometry(30, 30, 100, 100);
+            const vertices = geometry.attributes.position.array;
+            
+            // Simular terreno marciano con noise simple
+            for (let i = 0; i < vertices.length; i += 3) {
+                const x = vertices[i];
+                const y = vertices[i + 1];
+                
+                // Noise simple
+                const height = Math.sin(x * 0.5) * Math.cos(y * 0.3) * 3 + 
+                              Math.sin(x * 2) * Math.cos(y * 1.5) * 0.5;
+                vertices[i + 2] = height;
+            }
+            
+            geometry.computeVertexNormals();
+            
+            const material = new THREE.MeshStandardMaterial({
+                color: 0xc1440e,
+                roughness: 0.9,
+                metalness: 0.1
             });
+            
+            currentTerrain = new THREE.Mesh(geometry, material);
+            currentTerrain.rotation.x = -Math.PI / 2;
+            currentTerrain.castShadow = true;
+            currentTerrain.receiveShadow = true;
+            scene.add(currentTerrain);
+            
+            addReferenceSphere();
+        }
+
+        function addReferenceSphere() {
+            // Esfera de referencia para escala
+            const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
+            const sphereMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xff0000,
+                wireframe: true 
+            });
+            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            sphere.position.set(0, 12, 0);
+            scene.add(sphere);
+        }
+
+        function onWindowResize() {
+            const container = document.getElementById('threejs-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // ===== FUNCIONES DE CONTROL =====
+        window.switchToMercury = function() {
+            createMercuryTerrain();
+            camera.position.set(0, 15, 25);
+            controls.reset();
+        }
+
+        window.switchToMars = function() {
+            createMarsTerrain();
+            camera.position.set(0, 15, 25);
+            controls.reset();
+        }
+
+        window.resetView = function() {
+            controls.reset();
+            camera.position.set(0, 15, 25);
+        }
+
+        // ===== INICIALIZACIÓN =====
+        // Esperar a que OpenSeadragon cargue antes de inicializar Three.js
+        viewer.addHandler('open', function() {
+            setTimeout(initThreeJS, 100);
+            setTimeout(animate, 200);
         });
+*/
     </script>
 </body>
 </html>
