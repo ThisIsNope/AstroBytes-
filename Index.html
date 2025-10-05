@@ -18,7 +18,7 @@
         <h3>AstroBot</h3>
         <form action="astrobot.js" target="_self" method="post">
             <input type="text" id="question" name="question" placeholder="Ask a question...">
-            <button onclick="analyzeCurrentView()">Ask SpaceBot</button>
+            <input type="submit" value="Analyze" onsubmit="analyzeCurrentView();event.preventDefault();">
             <div id="ai-response-area">
                 <p>¡Hola! Haz zoom en cualquier objeto para comenzar el análisis.</p><!--ingles-->
             </div>
