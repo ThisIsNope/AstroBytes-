@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device.width, initial-scale=1.0">
     <meta name="author" content="AstroBytes++">
     <link href="styles.css" rel="stylesheet">
-    <title>Zoom in Space &#127756</title>
-    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
+    <title>Zoom in Space &#127756</title> 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <!-- SideBar -->
 <div class="sidebar" id="mySidebar">
+    <button class="open-btn" id="open-btn" onclick="openNav()" img src="media/gemini_logo.png">&#9776;</button>
     <button class="close-btn" onclick="closeNav()"> &times;</button>
     <div class="sidebar-content-box"><!--Chatbot-->
         <h3>AstroBot</h3>
@@ -59,21 +59,13 @@
         </form>
     </div>
 
-    <div><!--MAP-->
-        <div id="map-viewport">
-            <img src="media/mapa.jpeg" alt="map" id="map-image">
-        </div>
-    </div>
+    <div id="map-viewport"><!--MAP--></div>
 
 
     <!--Lugar de contenido general, desplazamiento a la derecha  -->
     <div id="mainContent" class="main-content">
         <div class="page-header">
-            <button id="openNav" class="open-btn" onclick="openNav()">
-                <img src="media/gemini_logo.png" alt="sidebar open button" class="sidebar-open-btn">
-            </button>
         </div>
-
         <div style="padding: 20px;">
             <p>Lugar de ubicación del mapa y modales</p>
         </div>
@@ -91,6 +83,7 @@
 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="/openseadragon-bin-5.0.1/openseadragon.min.js"></script>
     <script src="script.js"></script>
     <script src="astrobot.js"></script>
 </body>
