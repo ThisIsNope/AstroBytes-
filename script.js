@@ -186,9 +186,9 @@ function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
     var planet = document.createElement("img");
     planet.src = src;
     planet.id = id;
-    if(id === "asteroids"){
+    if (id === "asteroids") {
         planet.style.userSelect = "none";
-    planet.style.pointerEvents = "none";
+        planet.style.pointerEvents = "none";
         planet.draggable = false;
     }
     planet.loading = "lazy";
@@ -209,4 +209,5 @@ function addPlanetOverlay(id, src, widthRatio, heightRatio, offsetX, offsetY) {
             bounds.height * heightRatio
         )
     });
-}
+
+   
