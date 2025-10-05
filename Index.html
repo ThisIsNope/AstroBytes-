@@ -11,6 +11,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+<!-- SideBar -->
+<div class="sidebar" id="mySidebar">
+    <button class="open-btn" id="open-btn" onclick="openNav()" img src="media/gemini_logo.png">&#9776;</button>
+    <button class="close-btn" onclick="closeNav()"> &times;</button>
+    <div class="sidebar-content-box"><!--Chatbot-->
+        <h3>AstroBot</h3>
+        <form action="astrobot.js" target="_self">
+            <input type="text" id="question" name="question" placeholder="Ask a question...">
+            <input type="submit" value="Analyze">
+        </form>
+    </div>
+    <div class="sidebar-content-box">
+        <h3>Zoom</h3>
+        <div>
+            <button class="nav-z-btn" id="zoom-in"><img src="media/mas.png" alt="+"></button>
+            <button class="nav-z-btn" id="zoom-out"><img src="media/menos.png" alt="-"></button>
+            <button id="reset">
+                <p>RESET</p>
+            </button>
+        </div>
+        <input type="range" id="zoom-slider" min="100" max="500" value="100">
+        <span id="zoom-level">100%</span>
+    </div>
+    <div class="sidebar-content-box">
+        <h3>Botones de navegación</h3>
+        <div>
+            <button class="nav-z-btn" id="pan-up"><img src="media/flecha_arriba.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-down"><img src="media/flecha_abajo.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-left"><img src="media/flecha_izq.png" alt="&#"></button>
+            <button class="nav-z-btn" id="pan-right"><img src="media/flecha_der.png" alt="&#"></button>
+
+        </div>
+    </div>
+</div>
 
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <div><!--header-->
@@ -19,189 +53,38 @@
     <div><!--Search Bar-->
         <form action="/"><!--Action attribute -->
             <input type="text" id="searchbar" name="searchbar" placeholder="Search...">
-            <input type="submit" value="&#x1F50E"><!--Img?-->
+            <input type="submit" value="&#x1F50E">
         </form>
     </div>
 
     <div><!--MAP-->
         <div id="map-viewport">
-            <img src="" alt="map" id="map-image">
+            <img src="media/mapa.jpeg" alt="map" id="map-image">
         </div>
     </div>
 
-
-
-    <!--Aqui inicia openseadragon-->
-    <div id="openseadragon"></div>
-
-    <script>
-        // Fecha de la imagen que quieres ver (YYYY-MM-DD)
-        const fecha = "2025-10-04";
-
-        // Crear el visor
-        var viewer = OpenSeadragon({
-            id: "openseadragon",
-            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-            showNavigator: true,
-            tileSources: {
-                type: "tilemapservice",
-                width: 16384,  // tamaño máximo (puede variar según dataset)
-                height: 8192,
-                tileSize: 512,
-                minLevel: 0,
-                maxLevel: 8,
-                getTileUrl: function (level, x, y) {
-                    return `https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/${fecha}/250m/${level}/${y}/${x}.jpg`;
-                }
-            }
-        });
-    </script>
-
-    <!-- SideBar -->
-    <div class="sidebar" id="mySidebar">
-        <button class="close-btn" onclick="closeNav()"> &times;</button>
-        <div class="sidebar-content-box">
-            <h1>Chatbot</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua </p>
-        </div>
-        <div class="sidebar-content-box">
-            <h3>Zoom</h3>
-            <div>
-                <button id="zoom-in"><img src="" alt="+"></button><!--img = + -->
-                <button id="zoom-out"><img src="" alt="-"></button><!--img = - -->
-                <button id="reset"><img src="" alt="RESET"></button><!--img = RESET -->
-            </div>
-            <input type="range" id="zoom-slider" min="100" max="500" value="100">
-            <span id="zoom-level">100%</span>
-        </div>
-        <div class ="sidebar-content-box">
-            <h3>Botones de navegación</h3>
-            <div>
-                <button id="pan-up"><img src="" alt="&#"></button><!--img = flecha arriba-->
-                <button id="pan-left"><img src="" alt="&#"></button><!--img = flecha izq-->
-                <button id="pan-right"><img src="" alt="&#"></button><!--img = flecha der-->
-                <button id="pan-down"><img src="" alt="&#"></button><!--img = flecha abajo-->
-            </div>
-        </div>
-    </div>
 
     <!--Lugar de contenido general, desplazamiento a la derecha  -->
     <div id="mainContent" class="main-content">
         <div class="page-header">
-            <button id="openNav" class="open-btn" onclick="openNav()">
-                <img src="media/gemini_logo.png" alt="sidebar open button" class="sidebar-open-btn">
-            </button>
-            <div class="header-title">
-                <img src="">
-            </div>
         </div>
-
         <div style="padding: 20px;">
             <p>Lugar de ubicación del mapa y modales</p>
         </div>
-
     </div>
 
-    <script>
-        const sidebarWidth = "250px";
 
-        function openNav() {
-            document.getElementById("mainContent").style.marginLeft = sidebarWidth;
-            document.getElementById("mySidebar").style.width = sidebarWidth;
-            document.getElementById("openNav").style.display = 'none';
-        }
 
-        function closeNav() {
-            document.getElementById("mainContent").style.marginLeft = "0";
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("openNav").style.display = "inline-block";
-        }
-    </script>
+    <footer class="footer">
+        <!-- BOTONO CAPTURONO-->
+        <div id="chat-container">
+            <button id="screenshot-btn">camara</button>
+            <div id="chat-output"></div>
+        </div>
+    </footer>
 
-    <!-- BOTONO CAPTURONO-->
-    <div id="chat-container">
-        <button id="screenshot-btn">camara</button>
-        <div id="chat-output"></div>
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        document.getElementById('screenshot-btn').addEventListener('click', function () {
-            html2canvas(document.body).then(function (canvas) {
-                //descarga
-                var link = document.createElement('a');
-                link.download = 'captura.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        });
-    </script>
-
-    <script>
-        // Variables globales
-        let scale = 1;
-        let posX = 0;
-        let posY = 0;
-        let isDragging = false;
-        let startX, startY;
-
-        const mapViewport = document.getElementById('map-viewport');
-        const mapImage = document.getElementById('map-image');
-        const zoomLevel = document.getElementById('zoom-level');
-        const zoomSlider = document.getElementById('zoom-slider');
-        const loading = document.getElementById('loading');
-        const viewportIndicator = document.getElementById('viewport-indicator');
-
-        // Controles de zoom
-        document.getElementById('zoom-in').addEventListener('click', () => zoom(1.2));
-        document.getElementById('zoom-out').addEventListener('click', () => zoom(0.8));
-        document.getElementById('reset').addEventListener('click', resetZoom);
-        zoomSlider.addEventListener('input', () => {
-            const newScale = zoomSlider.value / 100;
-            zoomTo(newScale);
-        });
-
-        // Controles de navegación
-        document.getElementById('pan-up').addEventListener('click', () => pan(0, 100));
-        document.getElementById('pan-down').addEventListener('click', () => pan(0, -100));
-        document.getElementById('pan-left').addEventListener('click', () => pan(100, 0));
-        document.getElementById('pan-right').addEventListener('click', () => pan(-100, 0));
-
-        // Funciones de zoom
-        function zoom(factor) {
-            scale *= factor;
-            updateZoom();
-        }
-
-        function zoomTo(newScale) {
-            scale = newScale;
-            updateZoom();
-        }
-
-        function resetZoom() {
-            scale = 1;
-            posX = 0;
-            posY = 0;
-            updateZoom();
-        }
-
-        function updateZoom() {
-            mapViewport.style.transform = `translate(-50%, -50%) scale(${scale}) translate(${posX}px, ${posY}px)`;
-            zoomLevel.textContent = Math.round(scale * 100) + '%';
-            zoomSlider.value = Math.round(scale * 100);
-            updateMinimap();
-        }
-
-        // Funciones de pan (movimiento)
-        function pan(deltaX, deltaY) {
-            posX += deltaX / scale;
-            posY += deltaY / scale;
-            updateZoom();
-        }
-
-        window.addEventListener('load', () => {
-            updateZoom();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
