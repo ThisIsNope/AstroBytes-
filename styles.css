@@ -85,13 +85,14 @@ body {
 
 /* Estilos para el encabezado de la página */
 .page-header {
-  background-color: #106491;
+  position: relative;
+  background-color: #e71bd6;
   color: white;
   padding: 20px;
   display: flex;
   align-items: center;
   width: 70px;
-  position: relative;
+
 }
 
 .open-btn {
@@ -110,9 +111,9 @@ body {
 }
 
 .sidebar-open-btn {
-  scale: 750%;
+  scale: 100%;
   padding-left: 2px;
-  display: flex;
+  display:flex;
 }
 
 .footer {
