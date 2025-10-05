@@ -100,7 +100,6 @@ body {
   border: none;
   color: white;
   margin-right: 10px;
-  content: ;
 
 }
 
@@ -111,4 +110,16 @@ body {
 .sidebar-open-btn{
   scale: 500%;
   padding-left: 2px;
+}
+
+.footer{
+  position: sticky;
+  width: 100%;
+  background: #3586ff;
+  min-height: 100px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
