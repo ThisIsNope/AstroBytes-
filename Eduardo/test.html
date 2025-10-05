@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title>OpenSeadragon - Sun Zoom</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        #openseadragon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #sun {
+            position: absolute;
+            pointer-events: none;
+        }
+        #mercury {
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="openseadragon"></div>
+
+    <script src="../openseadragon-bin-5.0.1/openseadragon.min.js"></script>
+    <script>
+        var viewer = OpenSeadragon({
+            id: "openseadragon",
+            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+            tileSources: "tiles/space.dzi",
+            defaultZoomLevel: 1,
+            minZoomLevel: 1,
+            maxZoomLevel: 200,
+            visibilityRatio: 1.0,
+            constrainDuringPan: true,
+        });
+
+        viewer.addHandler("open", function() {
+            var sun = document.createElement("img");
+            sun.src = "tiles/sunHD.png";
+            sun.id = "sun";
+
+            // Obtener los límites de la imagen
+            var tiledImage = viewer.world.getItemAt(0);
+            var bounds = tiledImage.getBounds(); // x, y, width, height
+
+            // Calcular el centro exacto
+            var centerX = bounds.x + bounds.width / 2;
+            var centerY = bounds.y + bounds.height / 2;
+
+            // Agregar overlay centrado
+            viewer.addOverlay({
+                element: sun,
+                location: new OpenSeadragon.Rect(centerX - bounds.width * 0.06, centerY - bounds.height * 0.03, bounds.width * 0.13, bounds.height * 0.2)
+            });
+        });
+        viewer.addHandler("open", function() {
+            var mercury = document.createElement("img");
+            mercury.src = "tiles/mercury.png";
+            mercury.id = "mercury";
+
+            // Obtener los límites de la imagen
+            var tiledImage = viewer.world.getItemAt(0);
+            var bounds = tiledImage.getBounds(); // x, y, width, height
+
+            // Calcular el centro exacto
+            var centerX = bounds.x + bounds.width / 2.2;
+            var centerY = bounds.y + bounds.height / 2.1;
+
+            // Agregar overlay centrado
+            viewer.addOverlay({
+                element: mercury,
+                location: new OpenSeadragon.Rect(centerX - bounds.width * 0.01, centerY - bounds.height * 0.01, bounds.width * 0.01, bounds.height * 0.015)
+            });
+        });
+    </script>
+</body>
+</html>

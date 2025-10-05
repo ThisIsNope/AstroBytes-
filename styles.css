@@ -1,1 +1,114 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
 
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.main-content {
+  transition: margin-left 0.3s ease;
+  /* Transición suave para el movimiento */
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  /* Inicialmente cerrado */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #00487C;
+  /* Color azul oscuro */
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.3s;
+  /* Transición para el ancho (animación de despliegue) */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  /* Sombra para simular la tarjeta */
+}
+
+/* Estilos para los enlaces del Sidebar */
+.sidebar-item {
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  transition: 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: #006D9E;
+  /* Color un poco más claro al pasar el ratón */
+}
+
+/* Estilo para el contenedor del chatbot */
+.sidebar-content-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Fondo blanco semi-transparente */
+  color: white;
+  padding: 15px;
+  margin: 20px 10px;
+  /* Margen para separarlo de los bordes y enlaces */
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-content-box p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Estilo para el botón de cerrar */
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el encabezado de la página */
+.page-header {
+  background-color: #106491;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  width: 70px;
+}
+
+.open-btn {
+  font-size: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  margin-right: 10px;
+  content: ;
+
+}
+
+.header-title {
+  margin-left: 15px;
+}
+
+.sidebar-open-btn{
+  scale: 500%;
+  padding-left: 2px;
+}
