@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       background: #0b0c10;
-      color: #ffffff;
+      color: #fff;
       margin: 0;
       padding: 20px;
     }
@@ -27,15 +27,6 @@
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 15px;
     }
     .card h2 {
       margin: 10px 0;
@@ -46,6 +37,10 @@
       line-height: 1.5;
       color: #c5c6c7;
     }
+    .card ul {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
   </style>
 </head>
 <body>
@@ -53,38 +48,42 @@
   <div class="container" id="planet-container"></div>
 
   <script>
-    const planets = [
-      "Sun",
-      "Mercury",
-      "Venus",
-      "Earth",
-      "Mars",
-      "Jupiter",
-      "Saturn",
-      "Uranus",
-      "Neptune"
-    ];
-
     const container = document.getElementById("planet-container");
 
-    planets.forEach(planet => {
-      fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${planet}`)
-        .then(response => response.json())
-        .then(data => {
+    fetch("../planetData.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to load JSON");
+        return response.json();
+      })
+      .then(data => {
+        data.forEach(body => {
           const card = document.createElement("div");
           card.className = "card";
 
-          const image = data.thumbnail ? `<img src="${data.thumbnail.source}" alt="${planet}">` : "";
+          let moons = body.moons.length > 0 ? `<ul>${body.moons.map(m => `<li>${m}</li>`).join('')}</ul>` : "None";
 
           card.innerHTML = `
-            ${image}
-            <h2>${data.title}</h2>
-            <p>${data.extract}</p>
+            <h2>${body.name} (${body.type})</h2>
+            <p><strong>Age:</strong> ${body.age}</p>
+            <p><strong>Characteristics:</strong></p>
+            <ul>
+              ${Object.entries(body.characteristics).map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`).join('')}
+            </ul>
+            <p><strong>History:</strong></p>
+            <ul>
+              ${body.history.formation ? `<li><strong>Formation:</strong> ${body.history.formation.description}</li>` : ''}
+              ${body.history.main_sequence ? `<li><strong>Main Sequence:</strong> ${body.history.main_sequence.description}</li>` : ''}
+              ${body.history.future ? 
+                Object.entries(body.history.future).map(([phase, info]) => `<li><strong>${phase}:</strong> ${info.description}</li>`).join('') 
+                : ''}
+            </ul>
+            <p><strong>Moons:</strong></p>
+            ${moons}
           `;
           container.appendChild(card);
-        })
-        .catch(error => console.error("Error fetching data:", error));
-    });
+        });
+      })
+      .catch(err => console.error(err));
   </script>
 </body>
 </html>
