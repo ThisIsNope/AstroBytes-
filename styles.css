@@ -85,21 +85,27 @@ body {
 
 /* Estilos para el encabezado de la página */
 .page-header {
-  background-color: #106491;
+  position: fixed;
+  background-color: #006D9E;
   color: white;
   padding: 20px;
   display: flex;
   align-items: center;
   width: 70px;
+  left: 0;
+  top: 0;
 }
 
 .open-btn {
+  top:0;
+  left: 0;
   font-size: 30px;
   cursor: pointer;
   background: none;
   border: none;
   color: white;
   margin-right: 10px;
+  display: flex;
 
 }
 
@@ -107,12 +113,13 @@ body {
   margin-left: 15px;
 }
 
-.sidebar-open-btn{
-  scale: 500%;
+.sidebar-open-btn {
+  scale: 100%;
   padding-left: 2px;
+  display:flex;
 }
 
-.footer{
+.footer {
   position: fixed;
   width: 100%;
   background: #3586ff;
@@ -127,7 +134,7 @@ body {
   text-align: center;
 }
 
-.nav-z-btn{
+.nav-z-btn {
   width: 10%;
   height: 10%;
 }
