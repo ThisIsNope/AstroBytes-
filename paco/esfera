@@ -16,7 +16,7 @@
                textura_sol = loadImage('SOL.gif');
                textura_Mercurio = loadImage('mercurio.jpg');
                textura_fondo_estrellas = loadImage("https://i.ibb.co/NNTFKmL/nocheHD.jpg");
-
+               textura_venus = loadImage("venus.jpg");
           }
 
           function setup() {
@@ -50,8 +50,6 @@
 
                orbitControl() //Controlar con el mouse la camara
 
-               rotateZ(-0.3) //Inclinación del sol
-
                push()
                rotateY(frameCount * 0.003); //rotación del sol
                texture(textura_sol); 
@@ -61,9 +59,17 @@
                push()
                rotateY(-frameCount * 0.01 / 10);//Traslación
                translate(0, 0, 200)//Distancia del centro del sol al centro de la mercurio
-               rotateY(-frameCount * 0.0005);//Rotación de mercurio
+               rotateY(-frameCount * 0.005);//Rotación de mercurio
                texture(textura_Mercurio);
                sphere(25);
+               pop()
+
+               push()
+               rotateY(-frameCount * 0.005 / 10);//Traslación
+               translate(0, 0, 305)//Distancia del centro del sol al centro de la mercurio
+               rotateY(-frameCount * 0.0005);//Rotación de mercurio
+               texture(textura_venus);
+               sphere(50);
                pop()
           }
 
