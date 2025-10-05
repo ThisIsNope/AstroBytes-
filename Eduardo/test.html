@@ -121,6 +121,7 @@
             var planet = document.createElement("img");
             planet.src = src;
             planet.id = id;
+            planet.loading = "lazy";
             planet.className = "planet-overlay";
 
             var tiledImage = viewer.world.getItemAt(0);
